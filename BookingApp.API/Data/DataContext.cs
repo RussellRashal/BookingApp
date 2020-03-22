@@ -11,6 +11,13 @@ namespace BookingApp.API.Data
 
          public DbSet<Order> Order { get; set; }
 
+        public DbSet<Booking> bookings { get; set; }
 
-        }
+        
+    
+    
     }
+}
+
+
+      
