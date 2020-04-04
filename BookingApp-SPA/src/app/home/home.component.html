@@ -1,0 +1,21 @@
+
+  <div *ngIf="submitMode"  class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <app-Booking [valuesFromHome]="values"></app-Booking>
+      </div>
+    </div>
+  </div>
+<p *ngFor="let value of values">{{value.name}}</p>
+
+
+<div class="form-group">
+  <label for="favouriteValue">what is your favourite value</label>
+  <select class="form-control" id="favouritesValue">
+    <option *ngFor= "let value of values" [value]="value">
+      {{value.name}}
+    </option>
+  </select>
+</div>
+
+

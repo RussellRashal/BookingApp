@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from './../_services/alertify.service';
+import { AuthService } from './../_services/auth.service';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -8,20 +11,45 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./Booking.component.css']
 })
 export class BookingComponent implements OnInit {
-  Book: any;
 
-  constructor(private http: HttpClient) { }
+
+
+  makes = ['Mr' , 'Mrs', 'Ford'];
+
+  @Input() valuesFromHome: any;
+  @Output() cancelBooking = new EventEmitter();
+  model: any = {};
+  bookings: any;
+
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    this.getBooking();
+    this.Bookings();
+    this.Book();
   }
 
-  getBooking() {
+
+  Book() {
+   this.authService.Booking(this.model).subscribe(() => {
+    this.alertify.success('Booked successfully');
+   }, error => {
+     this.alertify.error('its already booked');
+   });
+
+
+  }
+  Bookings() {
     this.http.get('http://localhost:5000/api/Book').subscribe(response => {
-      this.Book = response;
+      this.bookings = response;
+      console.log(this.bookings);
     }, error => {
       console.log(error);
     });
   }
 
-}
+
+ // cancel() {
+   // this.cancelBooking.emit(false);
+  //  console.log('cancel');
+  }
+

@@ -13,5 +13,11 @@ namespace BookingApp.API.Models
         public string Request { get; set; }
 
         public int NoPeople { get; set; }
+        
+        public Customer Customer { get; set;}
+
+      
+
+    
     }
 }

@@ -1,3 +1,72 @@
-<p *ngFor="let bookings of Book">
-  {{bookings.id}}, {{bookings.title}} ,{{bookings.date}}
-</p>
+
+
+<form #BookingForm="ngForm" (ngSubmit)="Book()">   
+  <h2 class="text-center text-primary">Booking now</h2>
+  <hr>
+
+  <div class="form-group">
+    <input type="text" class="form-control" required name="title" [(ngModel)]="model.title" placeholder="Title" >
+  </div>
+
+  <div class="form-group">
+    <label for="favouriteValue">what is your favourite value</label>
+    <select class="form-control" id="favouriteValue">
+      <option *ngFor= "let value of valuesFromHome" [value]="value">
+        {{value.name}}
+      </option>
+    </select>
+  </div>
+
+
+
+  <div class="form-group">
+    <input type="date" class="form-control" required name="date" [(ngModel)]="model.date" placeholder="date">
+  </div>
+
+  <div class="form-group">
+    <input type="Request" class="form-control" required [(ngModel)]="model.Request" placeholder="Request">
+  </div>
+
+
+  <div class="form-group">
+    <input type="NoPeople" class="form-control"required [(ngModel)]="model.NoPeople"placeholder="No of people">
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit">Book</button>
+    <button class="btn btn-default" type="button">Cancel</button>
+  </div>      
+</form> 
+
+
+<div class="row justify-content-center">
+  <div class="col-4">
+    <app-blankpage [bookingFromHome]= "bookings" ></app-blankpage>
+  </div>
+</div>
+
+
+  <div *ngFor= "let make of makes">
+      <app-blankpage [make]="make"></app-blankpage>
+    </div>
+  
+  <!-- <p *ngFor="let booking of bookings">{{booking.Request}}</p> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p *ngFor="let booking of bookings">{{booking.title}}</p>
+
+
+
+
