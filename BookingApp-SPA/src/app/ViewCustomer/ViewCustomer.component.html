@@ -1,0 +1,21 @@
+<p *ngFor= "let booking of bookings">
+  {{booking.customers.firstName}},
+  {{booking.id}}, {{booking.date}},
+  {{booking.id}},{{booking.tableNumber}}
+  {{booking.id}},{{booking.additionalInfo}}
+
+</p>
+
+<!-- <p *ngFor= "let customers of bookings ">
+  {{booking.id}}, {{bookings.firstName}}
+
+
+  
+  
+  {{booking.customerId}}, {{booking.FirstName}}
+</p>
+
+
+<p>hello</p> -->
+
+<p>{{ bookings[0]?.customers[0]?.Color?.Name }}</p>

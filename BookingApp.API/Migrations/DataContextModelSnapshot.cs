@@ -22,8 +22,8 @@ namespace BookingApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
@@ -31,15 +31,15 @@ namespace BookingApp.API.Migrations
                     b.Property<int>("NoPeople")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Request")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TableNumber")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("customerId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("customerId");
 
                     b.ToTable("bookings");
                 });
@@ -56,30 +56,44 @@ namespace BookingApp.API.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("PasswordHashing")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("BLOB");
+
                     b.HasKey("Id");
 
                     b.ToTable("customers");
                 });
 
-            modelBuilder.Entity("BookingApp.API.Models.Values", b =>
+            modelBuilder.Entity("BookingApp.API.Models.Staff", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Role")
+                        .HasColumnType("TEXT");
 
-                    b.ToTable("values");
+                    b.HasKey("id");
+
+                    b.ToTable("staffs");
                 });
 
             modelBuilder.Entity("BookingApp.API.Models.Booking", b =>
                 {
-                    b.HasOne("BookingApp.API.Models.Customer", "Customer")
+                    b.HasOne("BookingApp.API.Models.Customer", "Customers")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("customerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

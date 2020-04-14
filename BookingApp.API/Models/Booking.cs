@@ -6,17 +6,17 @@ namespace BookingApp.API.Models
     {
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        public DateTime Date { get; set; }        
+       
+        public int TableNumber { get; set; }
 
-        public DateTime Date { get; set; }
-
-        public string Request { get; set; }
+        public string AdditionalInfo { get; set; }
 
         public int NoPeople { get; set; }
         
-        public Customer Customer { get; set;}
+        public Customer Customers { get; set;}
 
-      
+        public int customerId { get; set; }   
 
     
     }

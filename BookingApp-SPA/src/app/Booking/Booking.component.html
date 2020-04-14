@@ -1,71 +1,75 @@
+<!-- 
+<p>{{customerId}}</p>
+<p>{{bookings.AdditionalInfo}}</p> -->
 
+<!-- <p>{{bookings.customerId}} customer Id</p>
+<p>{{bookings.id}} id in databse</p>
+<p>{{bookings.date}}</p>
+<p>{{bookings.additionalInfo}}</p> -->
 
-<form #BookingForm="ngForm" (ngSubmit)="Book()">   
+<form [formGroup]="BookComplete" (ngSubmit)="Book()"> 
+
   <h2 class="text-center text-primary">Booking now</h2>
-  <hr>
 
   <div class="form-group">
-    <input type="text" class="form-control" required name="title" [(ngModel)]="model.title" placeholder="Title" >
+    <input formControlName="date" type="date" class="form-control" placeholder="date">
   </div>
+  
+ <div class="form-group">
+  <select formControlName="hour">
+    <option *ngFor="let hourpicker of hourpickers"
+      [value]="hourpicker">
+      {{hourpicker}}
+    </option>
+  </select>
+  <label>o' clock</label>
+  
+ </div>
 
-  <div class="form-group">
-    <label for="favouriteValue">what is your favourite value</label>
-    <select class="form-control" id="favouriteValue">
-      <option *ngFor= "let value of valuesFromHome" [value]="value">
-        {{value.name}}
-      </option>
-    </select>
-  </div>
-
-
-
-  <div class="form-group">
-    <input type="date" class="form-control" required name="date" [(ngModel)]="model.date" placeholder="date">
-  </div>
-
-  <div class="form-group">
-    <input type="Request" class="form-control" required [(ngModel)]="model.Request" placeholder="Request">
-  </div>
-
-
-  <div class="form-group">
-    <input type="NoPeople" class="form-control"required [(ngModel)]="model.NoPeople"placeholder="No of people">
-  </div>
-
-  <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Book</button>
-    <button class="btn btn-default" type="button">Cancel</button>
-  </div>      
-</form> 
-
-
-<div class="row justify-content-center">
-  <div class="col-4">
-    <app-blankpage [bookingFromHome]= "bookings" ></app-blankpage>
-  </div>
+ <div class="form-group">
+  <label>Number of People</label>
+  <select formControlName="noPeople" class="form-control">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select>
 </div>
 
 
-  <div *ngFor= "let make of makes">
-      <app-blankpage [make]="make"></app-blankpage>
-    </div>
+  <div class="form-group">
+    <label>Table Number</label>
+    <select formControlName="tableNumber" class="form-control">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>
   
-  <!-- <p *ngFor="let booking of bookings">{{booking.Request}}</p> -->
+  <label>Additional Information</label>
+  <div class="form-group">
+    <input formControlName="additionalInfo" class="form-control" placeholder="AdditionalInfo">
+  </div>
 
+ 
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit">Book</button>
+  </div>      
+</form> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<p *ngFor="let booking of bookings">{{booking.title}}</p>
 
 
 

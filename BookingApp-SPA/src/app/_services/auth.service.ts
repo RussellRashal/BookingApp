@@ -9,25 +9,45 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class AuthService {
   baseUrl = 'http://localhost:5000/api/';
-
+  userUrl = this.baseUrl + 'user/';
+  MainUrl = 'http://localhost:5000/api/Book/';
 
   constructor(private http: HttpClient) { }
 
 
   login(model: any) {
-    return this.http.post(this.baseUrl + 'login', model)
+    return this.http.post(this.userUrl + 'login', model)
       .pipe(
         map((response: any) => {
           const user = response;
           if (user) {
             localStorage.setItem('token', user.token);
+            localStorage.setItem('customerId', JSON.stringify(user.id));
+           // localStorage.setItem('customerId', user.id);
+
           }
         })
       );
   }
-    Booking(model: any) {
-        return this.http.post(this.baseUrl + 'Book', model);
-    }
+
+  updateUser(customerId: number, model: any) {
+    return this.http.put(this.baseUrl + 'Book/' + customerId, model);
+  }
+
+   GetBooking(model: any) {
+     return this.http.get(this.MainUrl + 'customerId', model);
+   }
+
+
+  Booking(model: any) {
+    return this.http.post(this.baseUrl + 'Book', model);
+  }
+
+  Customer(model: any) {
+    return this.http.post(this.baseUrl + 'Customer', model);
+  }
+
+
   }
 
 

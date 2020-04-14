@@ -7,7 +7,10 @@ namespace BookingApp.API.Models
         public string FirstName { get; set; }
       
         public string LastName { get; set; }
-        
+
+        public byte[] PasswordHashing { get; set; } 
+
+        public byte[] PasswordSalt { get; set; }      
 
 
     }

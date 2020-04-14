@@ -6,11 +6,11 @@ namespace BookingApp.API.Data
 {
     public interface IAuthRepository
     {
-         Task<Booking> booking(Booking booking, DateTime Date, string Request, int NoPeople);
-   
-        Task<bool> TitleExists(string Title);
+         
+         Task<Customer> Register(Customer customer, String Password);
+         Task<Customer> Login(string FirstName, string Password );
 
-
-
+         Task<bool> UserExists(string FirstName);
+        
     }
 }

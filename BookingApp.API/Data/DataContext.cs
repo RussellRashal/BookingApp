@@ -13,7 +13,8 @@ namespace BookingApp.API.Data
 
         public DbSet<Customer> customers{ get; set;}
 
-        public DbSet<Values> values { get; set; }
+     
+        public DbSet<Staff> staffs{ get; set; }
 
     
 

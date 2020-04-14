@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookingApp.API.Migrations
 {
-    public partial class CreateNewCustomer : Migration
+    public partial class titleRemoveFromBookingTbl : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,10 @@ namespace BookingApp.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    PasswordHashing = table.Column<byte[]>(nullable: true),
+                    PasswordSalt = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -21,16 +24,18 @@ namespace BookingApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "values",
+                name: "staffs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_values", x => x.Id);
+                    table.PrimaryKey("PK_staffs", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,27 +44,27 @@ namespace BookingApp.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    Request = table.Column<string>(nullable: true),
+                    TableNumber = table.Column<int>(nullable: false),
+                    AdditionalInfo = table.Column<string>(nullable: true),
                     NoPeople = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: true)
+                    customerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_bookings_customers_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_bookings_customers_customerId",
+                        column: x => x.customerId,
                         principalTable: "customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookings_CustomerId",
+                name: "IX_bookings_customerId",
                 table: "bookings",
-                column: "CustomerId");
+                column: "customerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -68,7 +73,7 @@ namespace BookingApp.API.Migrations
                 name: "bookings");
 
             migrationBuilder.DropTable(
-                name: "values");
+                name: "staffs");
 
             migrationBuilder.DropTable(
                 name: "customers");

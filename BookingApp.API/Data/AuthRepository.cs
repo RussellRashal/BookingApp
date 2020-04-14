@@ -13,20 +13,65 @@ namespace BookingApp.API.Data
             _context = context;
 
         }
-        public async Task<Booking> booking(Booking booking, DateTime Date, string Request, int NoPeople)
+        public async Task<Customer> Login(string FirstName, string Password)
         {
-            await _context.bookings.AddAsync(booking);
+            var customer = await _context.customers.FirstOrDefaultAsync(x => x.FirstName == FirstName);
+
+            if(customer == null )
+                return null;
+            if(!VerifyHashPasswordHashing(Password, customer.PasswordHashing, customer.PasswordSalt))
+                return null;
+            return customer;    
+        }
+
+        private bool VerifyHashPasswordHashing(string password, byte[] passwordHashing, byte[] passwordSalt)
+        {
+            using(var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+              
+                var ProcessHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for(int i = 0; i < ProcessHash.Length; i++)    // interates through the length of the password and increaments it to convertion
+                {
+                    if(ProcessHash[i] != passwordHashing[i]) return false; 
+                }
+            }
+            return true;
+        }
+
+        public async Task<Customer> Register(Customer customer, string password)
+        {
+            byte[] passwordHashing, passwordSalt;
+            CreatePasswordHashing(password, out passwordHashing, out passwordSalt);
+
+            customer.PasswordHashing = passwordHashing;
+            customer.PasswordSalt = passwordSalt;
+
+            await _context.customers.AddAsync(customer);
             await _context.SaveChangesAsync();
 
-            return booking;
+            return customer;
         }
-
-        public async Task<bool> TitleExists(string Title)
+        // below this is to convert the password string into a hashing which gets stored in the db 
+        private void CreatePasswordHashing(string password, out byte[] passwordHashing, out byte[] passwordSalt)
         {
-            if(await _context.bookings.AnyAsync(x => x.Title == Title))
-                return true;
-
-            return false;
+            using(var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHashing = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+            
         }
+
+        // below its to check if the name of the user exists in the database then return true 
+
+
+        public async Task<bool> UserExists(string FirstName)
+        {
+            if(await _context.customers.AnyAsync(x => x.FirstName == FirstName))
+                return true;
+            return false;    
+        }
+
+      
     }
 }

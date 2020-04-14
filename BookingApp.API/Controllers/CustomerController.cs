@@ -1,12 +1,16 @@
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using BookingApp.API.Data;
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using BookingApp.API.Data;
+using System.Net;
+
+
 using BookingApp.API.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+
+
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,6 +19,7 @@ namespace BookingApp.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+
     public class CustomerController : ControllerBase
     {
         private readonly DataContext _context;
@@ -27,49 +32,63 @@ namespace BookingApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomer()
         {
-            var Customer = await _context.customers.ToListAsync();
+            var Customers = await _context.customers.ToListAsync();
 
-            return Ok(Customer);
-        }
-
-      
-
-
-
-
-        [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBooking(int id)
-        {
-            var Booking = await _context.bookings.FirstOrDefaultAsync(x => x.Id == id);
-            
-            return Ok(Booking);
-        }
-
-        // POST api/values
-        [AllowAnonymous]
-        [HttpPost]
-        public Customer PostBook(Customer customers)
-        {           
-             _context.customers.Add(customers);
-             _context.SaveChanges();  
-
-             return customers;        
-
+            return Ok(Customers);
         }
 
 
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+    [AllowAnonymous]
+    [HttpPost]
+    public async Task<IActionResult> PostBook(Customer customers)
+    {
+        // var titleExists = 
+        //     await _context.bookings.AnyAsync(b => b.Title == bookings.Title);
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        // if (titleExists) 
+        //     return BadRequest($"Title '{bookings.Title}' already exists");
+               //......................................
+        //  var FirstNameExists = 
+        //     await _context.customers.AnyAsync(c => c.FirstName  == customers.FirstName);
+
+
+        // var LastNameExists = 
+        //     await _context.customers.AnyAsync(c => c.LastName  == customers.LastName);
+
+        
+        // var PasswordExists = 
+        //     await _context.customers.AnyAsync(c => c.Password  == customers.Password);
+    
+
+               
+        //  if ( FirstNameExists && LastNameExists && PasswordExists) 
+        //     return BadRequest(" already exists");
+    
+        
+            _context.customers.Add(customers);
+            await _context.SaveChangesAsync();
+
+             return Ok();
+    
+    
+    }  
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
     }
 }

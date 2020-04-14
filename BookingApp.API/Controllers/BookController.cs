@@ -27,11 +27,10 @@ namespace BookingApp.API.Controllers
             _context = context;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetBooking()
         {
-            var Booking = await _context.bookings.Include(c => c.Customer).ToListAsync();
+            var Booking = await _context.bookings.Include(c => c.Customers).ToListAsync();
 
             return Ok(Booking);
         }
@@ -39,108 +38,60 @@ namespace BookingApp.API.Controllers
 
 
 
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBooking(int id)
         {
-            var Booking = await _context.bookings.FirstOrDefaultAsync(x => x.Id == id);
+            var Booking = await _context.bookings.FirstOrDefaultAsync(x => x.customerId == id);
 
             return Ok(Booking);
         }
 
-    //  POST api/values
-       
-          // if (bookings.Time && Table == exists)
-             // return BadRequest
-        //return Ok(bookings)
-
-            // if(bookings has already been booked)
-            //     return BadRequest("booking already booked");
-            // return Ok(bookings);
-            // using select queries WHere date = 1.00 and table = 1
-            // return true         Task<IActionResult>
-
-
-        // [AllowAnonymous]
-        // [HttpPost]
-        // public async Task<IList<Booking>> Checked(string Request, Booking bookings)
-        // {
-        //     var SearchData = await _context.bookings.
-        //     Where(x => x.Title == Request).ToListAsync();
-
-
-        //     return Ok(Booking);
-
-
-
-
-        // }
+   
 
     [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> PostBook(Booking bookings)
     {
+        // code below means that the user will check if the table exists 
+        
+         var TableExists = 
+            await _context.bookings.AnyAsync(b => b.TableNumber  == bookings.TableNumber);
+        
+        var SameTime =
+            await _context.bookings.AnyAsync(b => b.Date  == bookings.Date);
         // var titleExists = 
-        //     await _context.bookings.AnyAsync(b => b.Title == bookings.Title);
+        //     await _context.bookings.AnyAsync(b => b.Title == bookings.Title);   // && titleExists in the if statement  
 
-        // if (titleExists) 
-        //     return BadRequest($"Title '{bookings.Title}' already exists");
-
-         var TimeExists = 
-            await _context.bookings.AnyAsync(b => b.NoPeople  == bookings.NoPeople);
-        
-        var titleExists = 
-            await _context.bookings.AnyAsync(b => b.Title == bookings.Title); 
-            
          
-         if (TimeExists  && titleExists) 
-            return BadRequest(" already exists");
-        
-                
-        
-        
+              if (TableExists && SameTime) 
+                 return BadRequest("already exists");
+             
+    
             _context.bookings.Add(bookings);
             await _context.SaveChangesAsync();
-
+            
              return Ok();
     
     
     }  
 
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
     [AllowAnonymous]
     [HttpPut("{Id}")]
     public Booking PutBooking(int Id, [FromBody] Booking bookings )
     {
-        var bookingsInDb = _context.bookings.SingleOrDefault(b => b.Id == Id);
+        var bookingsInDb = _context.bookings.SingleOrDefault(b => b.customerId == Id);
 
-
-        bookingsInDb.Title = bookings.Title;
         bookingsInDb.Date = bookings.Date;
-        bookingsInDb.Request = bookings.Request;
-
-
+        bookingsInDb.AdditionalInfo = bookings.AdditionalInfo;
+        bookingsInDb.TableNumber = bookings.TableNumber;
+        bookingsInDb.NoPeople = bookings.NoPeople;
 
         _context.SaveChanges();
 
         return bookingsInDb;
-
     }
  
 

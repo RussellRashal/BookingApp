@@ -1,37 +1,77 @@
-
-<form #BookingForm="ngForm" >   
-  <h2 class="text-center text-primary"> Edit the detials</h2>
-  <hr>
-
-
-
-  <div class="form-group">
-    <input type="text" class="form-control" required name="title"  placeholder="{{bookings.title}}">
-  </div>
-  
-  <h4>Title</h4>
-    <textarea name="introduction"  rows="6" class="form-control"  
-    [(ngModel)]="bookings.title" ></textarea>
-
-
-  <div class="form-group">
-    <input type="date" class="form-control" required name="date"  placeholder="date">
+<form [formGroup]="BookingForm" (ngSubmit)="UpdateUser()">
+  <div>
+    <label>Enter date: </label>
+    <input type="date" formControlName="Date">
   </div>
 
   <div class="form-group">
-    <input type="Request" class="form-control" required name="Request" placeholder="Request">
+    <select formControlName="hour">
+      <option *ngFor="let hourpicker of hourpickers"
+        [value]="hourpicker">
+        {{hourpicker}}
+      </option>
+    </select>
+    <label>o' clock</label>
   </div>
-  
+
+
+  <div>
+    <label>Additional Information: </label>
+    <textarea formControlName="AdditionalInfo"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Table Number</label>
+    <select formControlName="TableNumber" class="form-control">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label>Number of People</label>
+    <select formControlName="NoPeople" class="form-control">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>
  
-
-
-  <div class="form-group">
-    <input type="NoPeople" class="form-control"required name ="NoPeople" placeholder="No of people">
-  </div>
-
-  <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Edit </button>
-    <button class="btn btn-default" type="button">Cancel</button>
-  </div>      
+  <button type="submit" class="btn btn-primary">Update</button>
 </form>
 
+<div>
+  <div>
+    <label>Current Booking</label>
+  </div>
+  <div>
+    <label>date: {{getBooking.date}}</label>
+  </div>
+
+  <div>
+    <label>Number of people: {{getBooking.noPeople}}</label>
+  </div>
+
+  
+  <div>
+    <label>Table Number: {{getBooking.tableNumber}}</label>
+  </div>
+  <div>
+    <label>Additional Information: {{getBooking.additionalInfo}}</label>
+  </div>
+</div>
