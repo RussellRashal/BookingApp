@@ -46,6 +46,8 @@ export class BookingComponent implements OnInit {
 
 
   Book() {
+    this.model.Allergies = this.BookComplete.value.Allergies;
+    this.model.Diet = this.BookComplete.value.Diet;
     this.model.date = this.BookComplete.value.date + ' ' + this.BookComplete.value.hour + ':00:00';
     this.model.tableNumber = this.BookComplete.value.tableNumber;
     this.model.additionalInfo = this.BookComplete.value.additionalInfo;
@@ -74,6 +76,8 @@ export class BookingComponent implements OnInit {
 
   alterForm() {
     this.BookComplete = new FormGroup({
+      Allergies: new FormControl(),
+      Diet: new FormControl(),
       date: new FormControl(),
       hour: new FormControl(),
       tableNumber: new FormControl(),

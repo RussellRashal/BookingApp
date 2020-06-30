@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookingApp.API.Migrations
 {
-    public partial class titleRemoveFromBookingTbl : Migration
+    public partial class NewTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,8 @@ namespace BookingApp.API.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     TableNumber = table.Column<int>(nullable: false),
                     AdditionalInfo = table.Column<string>(nullable: true),
+                    Allergies = table.Column<string>(nullable: true),
+                    Diet = table.Column<string>(nullable: true),
                     NoPeople = table.Column<int>(nullable: false),
                     customerId = table.Column<int>(nullable: false)
                 },

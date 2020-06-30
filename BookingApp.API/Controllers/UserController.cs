@@ -15,11 +15,11 @@ namespace BookingApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : ControllerBase // this inhertis the controoler
     {
-        private readonly IAuthRepository _repo;
+        private readonly IAuthRepository _repo; // this is the interface code 
         private readonly IConfiguration _config;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper; // maps the properties 
         public UserController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _config = config;
@@ -53,7 +53,8 @@ namespace BookingApp.API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var customerFromRepo = await _repo.Login(userForLoginDto.FirstName, userForLoginDto.Password);
+            var customerFromRepo = await _repo.Login(userForLoginDto.FirstName, userForLoginDto.Password); // this line of code allows the object customerFromRepo to go through the reposotiry 
+            // the parameters contain the DTO to filter the password and the Firstname
 
             if (customerFromRepo == null)
                 return Unauthorized();
@@ -68,14 +69,18 @@ namespace BookingApp.API.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
+            // below is the code that converts the token into special characters usiing security algorithm signatrue 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
+
+            // code below deals with the token 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = creds
             };
+            // the JWT package is used for the tokenDescriptor
 
             var tokenHandler = new JwtSecurityTokenHandler();
 

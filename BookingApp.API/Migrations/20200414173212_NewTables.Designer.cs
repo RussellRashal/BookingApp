@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200408174031_titleRemoveFromBookingTbl")]
-    partial class titleRemoveFromBookingTbl
+    [Migration("20200414173212_NewTables")]
+    partial class NewTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,13 @@ namespace BookingApp.API.Migrations
                     b.Property<string>("AdditionalInfo")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Allergies")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Diet")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("NoPeople")

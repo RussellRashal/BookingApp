@@ -25,7 +25,13 @@ namespace BookingApp.API.Migrations
                     b.Property<string>("AdditionalInfo")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Allergies")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Diet")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("NoPeople")

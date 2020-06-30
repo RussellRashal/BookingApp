@@ -1,21 +1,46 @@
-<p *ngFor= "let booking of bookings">
-  {{booking.customers.firstName}},
-  {{booking.id}}, {{booking.date}},
-  {{booking.id}},{{booking.tableNumber}}
-  {{booking.id}},{{booking.additionalInfo}}
+<h1>List of reservations</h1>
+<div>
+  <p *ngFor= "let booking of bookings">
+    {{booking.customers.firstName}},
+    {{booking.id}}, {{booking.date}},
+    {{booking.id}},{{booking.tableNumber}}
+    {{booking.id}},{{booking.additionalInfo}}
+   
+  </p>
 
+<p>
+  
 </p>
 
-<!-- <p *ngFor= "let customers of bookings ">
-  {{booking.id}}, {{bookings.firstName}}
+<div>
+<p>{{bodyText}}</p>
+  <button (click)="openModal('custom-modal-1')">Open Modal 1</button>
+  <button (click)="openModal('custom-modal-2')">Open Modal 2</button>
+</div>
+
+<jw-modal id="custom-modal-1">
+  <h1>A Custom Modal!</h1>
+  <p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p>
+  <button (click)="closeModal('custom-modal-1');">Close</button>
+</jw-modal>
+
+<jw-modal id="custom-modal-2">
+  <h1 style="height:100px">A Tall Custom Modal!</h1>
+  <li *ngFor="let booking of bookings.slice(0, 1);">
+    {{booking.id}},{{booking.date}},
+    {{booking.id}},{{booking.tableNumber}}
+    {{booking.id}},{{booking.additionalInfo}}
+  </li>
+  <button (click)="closeModal('custom-modal-2');">Close</button>
+</jw-modal>
+
+ 
+                        
 
 
-  
-  
-  {{booking.customerId}}, {{booking.FirstName}}
-</p>
 
 
-<p>hello</p> -->
 
-<p>{{ bookings[0]?.customers[0]?.Color?.Name }}</p>
+
+
+

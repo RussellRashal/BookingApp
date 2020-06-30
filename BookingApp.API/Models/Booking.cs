@@ -12,6 +12,10 @@ namespace BookingApp.API.Models
 
         public string AdditionalInfo { get; set; }
 
+        public string Allergies { get; set; }
+
+        public string Diet { get; set; }
+
         public int NoPeople { get; set; }
         
         public Customer Customers { get; set;}

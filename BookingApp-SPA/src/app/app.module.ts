@@ -16,6 +16,7 @@ import { BlankPageComponent } from './BlankPage/BlankPage.component';
 import { StaffViewComponent } from './Staff-view/Staff-view.component';
 import { ViewCustomerComponent } from './ViewCustomer/ViewCustomer.component';
 
+import { ModalModule } from './_modal';
 @NgModule({
    declarations: [
       AppComponent,
@@ -33,6 +34,7 @@ import { ViewCustomerComponent } from './ViewCustomer/ViewCustomer.component';
       HttpClientModule,
       AppRoutingModule,
       FormsModule,
+      ModalModule,
       ReactiveFormsModule,
       RouterModule.forRoot(appRoutes)
    ],

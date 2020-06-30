@@ -27,6 +27,7 @@ namespace BookingApp.API.Controllers
             _context = context;
         }
 
+        // ccode below is used to get and recieve the object 
         [HttpGet]
         public async Task<IActionResult> GetBooking()
         {
@@ -76,7 +77,7 @@ namespace BookingApp.API.Controllers
     }  
 
 
- 
+ // code below is the edit function that uses the bookingIndb object that stores the value 
 
     [AllowAnonymous]
     [HttpPut("{Id}")]
@@ -84,6 +85,8 @@ namespace BookingApp.API.Controllers
     {
         var bookingsInDb = _context.bookings.SingleOrDefault(b => b.customerId == Id);
 
+        bookingsInDb.Allergies = bookings.Allergies;
+        bookingsInDb.Diet = bookings.Diet;
         bookingsInDb.Date = bookings.Date;
         bookingsInDb.AdditionalInfo = bookings.AdditionalInfo;
         bookingsInDb.TableNumber = bookings.TableNumber;

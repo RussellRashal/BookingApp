@@ -36,9 +36,6 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/home']);
 
   }
-
-
-
   login() {
     this.authService.login(this.model).subscribe(next => {
       console.log('logged in sucessfully');

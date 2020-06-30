@@ -10,9 +10,13 @@ namespace BookingApp.API.Data
         private readonly DataContext _context;
         public AuthRepository(DataContext context)
         {
-            _context = context;
+            _context = context; // this is the database context 
 
         }
+
+        // the code below is the Login method that contains paramters of FirstName and password
+        // the purpose of this method it to match the firstname with the datbase when the user logs in. 
+        // This goes same for the password but the only difference is that its using password hashing algorthm
         public async Task<Customer> Login(string FirstName, string Password)
         {
             var customer = await _context.customers.FirstOrDefaultAsync(x => x.FirstName == FirstName);

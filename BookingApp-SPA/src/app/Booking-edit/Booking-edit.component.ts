@@ -43,13 +43,15 @@ export class BookingEditComponent implements OnInit {
   UpdateUser() {
 
     this.model = {
+      Diet: this.BookingForm.value.Diet,
+      Allergies: this.BookingForm.value.Allergies,
       Date: this.BookingForm.value.Date + ' ' + this.BookingForm.value.hour + ':00:00',
       AdditionalInfo: this.BookingForm.value.AdditionalInfo,
       TableNumber: this.BookingForm.value.TableNumber,
-      NoPeople: this.BookingForm.value.NoPeople
+      NoPeople: this.BookingForm.value.NoPeople,
     };
 
-    // console.log(this.model);
+    console.log(this.model);
     console.log('this is the customer id ' + this.customerId);
 
     this.bookingService.updateBooking(this.customerId, this.model).subscribe(next => {
@@ -69,6 +71,8 @@ export class BookingEditComponent implements OnInit {
 
   CreateForm() {
     this.BookingForm = new FormGroup({
+      Allergies: new FormControl(''),
+      Diet: new FormControl(''),
       Date: new FormControl(''),
       hour: new FormControl(''),
       AdditionalInfo: new FormControl(''),

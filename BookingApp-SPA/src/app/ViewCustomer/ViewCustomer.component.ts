@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 
+import { ModalService } from '../_modal';
 @Component({
   selector: 'app-view-customer',
   templateUrl: './ViewCustomer.component.html',
@@ -10,12 +11,40 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class ViewCustomerComponent implements OnInit {
 bookings: any;
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+bodyText: string;
+selectedBooking: any;
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService
+    ,         private modalService: ModalService) { }
 
   ngOnInit() {
     this.Bookings();
     console.log(this.Bookings());
+    this.bodyText = 'This text can be updated in modal 1';
   }
+
+//   openModal(id: string) {
+//     this.modalService.open(id);
+// }
+
+// openModal(booking: any) {
+//   this.modalService.Bookings = booking;
+//   this.modalService.open(booking);
+//   }
+
+ openModal(booking: any) {
+    this.modalService.Bookings = booking;
+    this.modalService.open(booking);
+  }
+
+
+// openModal(booking: any) {
+//   this.modalService.Bookings = booking;
+//   this.modalService.open(booking);
+//   }
+
+closeModal(id: string) {
+    this.modalService.close(id);
+}
 
 
   Bookings() {

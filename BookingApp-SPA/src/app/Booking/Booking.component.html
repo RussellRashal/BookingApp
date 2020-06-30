@@ -23,8 +23,33 @@
     </option>
   </select>
   <label>o' clock</label>
-  
  </div>
+
+
+ <div class="form-group">
+  <label>Allergies</label>
+  <select formControlName="Allergies" class="form-control">
+    <option value="select your option" disabled selected>Select your option</option>
+    <option value="dairy">dairy</option>
+    <option value="Peanut">Peanut</option>
+    <option value="Soy">Soy</option>
+    <option value="Shellfish">Shellfish</option>
+    <option value="Meat">Meat</option>
+    <option value="Fish">Fish</option>
+  </select>
+</div>
+
+
+
+<div class="form-group">
+  <label>Dietary Requests</label>
+  <select formControlName="Diet" class="form-control">
+    <option value="Vegeraian">Vegeraian</option>
+    <option value="Vegan">Vegan</option>
+    <option value="Gluten-free">Gluten-free</option>
+    <option value="Religious restrictions">Religious restrictions</option>
+  </select>
+</div>
 
  <div class="form-group">
   <label>Number of People</label>
@@ -61,7 +86,7 @@
   
   <label>Additional Information</label>
   <div class="form-group">
-    <input formControlName="additionalInfo" class="form-control" placeholder="AdditionalInfo">
+    <textarea cols="50" rows="5" formControlName="additionalInfo"></textarea>
   </div>
 
  
@@ -69,8 +94,5 @@
     <button class="btn btn-success" type="submit">Book</button>
   </div>      
 </form> 
-
-
-
 
 
